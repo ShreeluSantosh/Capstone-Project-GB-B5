@@ -11,9 +11,9 @@ client = Client('en-US')
 # Add your X account credentials
 async def main():
     await client.login(
-        auth_info_1="" ,
-        auth_info_2="",
-        password=""
+        auth_info_1="" , # Add username
+        auth_info_2="",  # Add email address
+        password=""      # Add password
     )
 
     # Change the hashtags to get different results
