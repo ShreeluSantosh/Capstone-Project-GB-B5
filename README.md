@@ -1,9 +1,7 @@
 # Capstone-Project-GB-B5
 
-## Task Allocation for Review 1
+## Tasks for Review 1
 
-### Literature Review
-Members: 
-
-### Dataset Collection
-Members: 
+1. Literature Review
+2. Dataset collection
+3. Building prototype for TIP dashboard
