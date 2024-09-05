@@ -1,0 +1,61 @@
+// src/App.js
+import React, { useState } from 'react';
+import Header from './components/Header';
+import ThreatMapIframe from './components/ThreatMap';
+import Kaspersky from './components/kaspersky';
+import APTDashboard from './components/APTDashboard';
+import OTXPulses from './components/OTXPulses';  // Import the new component
+import './App.css';
+
+function App() {
+  const [activeTab, setActiveTab] = useState('ThreatMap'); // State to manage the active tab
+
+  const renderContent = () => {
+    if (activeTab === 'ThreatMap') {
+      return <Kaspersky />;
+    } else if (activeTab === 'APTGroups') {
+      return <APTDashboard />;
+    } else if (activeTab === 'Feed') {  // Add condition for OTXPulses
+      return <OTXPulses />;
+    } else if (activeTab === 'OrganizationChecks') {  // Add condition for OTXPulses
+      return <OTXPulses />;
+    }
+  };
+
+  return (
+    <div className="App">
+      <Header />
+      <div className="tabs">
+        <div 
+          className={`tab ${activeTab === 'ThreatMap' ? 'active' : ''}`} 
+          onClick={() => setActiveTab('ThreatMap')}
+        >
+          Threat Map
+        </div>
+        <div 
+          className={`tab ${activeTab === 'Feed' ? 'active' : ''}`} 
+          onClick={() => setActiveTab('Feed')}
+        >
+          Feed
+        </div>
+        <div 
+          className={`tab ${activeTab === 'APTGroups' ? 'active' : ''}`} 
+          onClick={() => setActiveTab('APTGroups')}
+        >
+          APT Groups
+        </div>
+        <div 
+          className={`tab ${activeTab === 'OrganizationChecks' ? 'active' : ''}`} 
+          onClick={() => setActiveTab('OrganizationChecks')}
+        >
+          Organization Checks
+        </div>
+      </div>
+      <main>
+        {renderContent()}
+      </main>
+    </div>
+  );
+}
+
+export default App;
