@@ -65,7 +65,7 @@ const OTXPulses = () => {
   if (loading) {
     return (
       <div className="loader-wrapper">
-        <h2>Search Threat Intel Pulses from AlienVault OTX</h2>
+        <h2>Search Threat Intel from Tweets</h2>
         <div className="loader"></div>
       </div>
     );
@@ -75,7 +75,7 @@ const OTXPulses = () => {
 
   return (
     <div className="loader-wrapper">
-      <h2>Search Threat Intel Pulses from AlienVault OTX</h2>
+      <h2>Search Threat Intel from Tweets</h2>
       <form onSubmit={handleSearchSubmit}>
         <input
           type="text"
@@ -87,7 +87,7 @@ const OTXPulses = () => {
       </form>
       <div className={loading ? 'hidden' : ''}>
         {pulses.length === 0 ? (
-          <p>No pulses found.</p>
+          <p>No tweets found.</p>
         ) : (
           <ul>
             {pulses.slice(0, 10).map((pulse) => ( // Display only the latest 5 pulses
