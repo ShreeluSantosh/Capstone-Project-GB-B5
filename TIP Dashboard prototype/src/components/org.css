@@ -1,0 +1,56 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+
+  /* Remove default list styling */
+ul {
+    list-style-type: none; /* Removes bullets */
+    padding: 0; /* Removes default padding */
+    margin: 0; /* Removes default margin */
+  }
+  
+  li {
+    margin-bottom: 10px; /* Adds space between list items */
+    padding: 5px; /* Optional: Adds padding around list items */
+    border-bottom: 1px solid #ddd; /* Optional: Adds a border line between items */
+  }
+  
+  
+  .panel {
+    width: 45%;
+  }
+  
+  .left-panel {
+    border-right: 1px solid #ccc;
+    padding-right: 20px;
+  }
+  
+  .right-panel {
+    padding-left: 20px;
+  }
+  
+  .activity-box {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .loader-wrapper {
+    text-align: center;
+  }
+  
+  .loader {
+    border: 4px solid rgba(0,0,0,0.1);
+    border-left-color: #333;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  

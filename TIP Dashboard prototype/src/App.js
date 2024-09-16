@@ -1,10 +1,10 @@
 // src/App.js
 import React, { useState } from 'react';
 import Header from './components/Header';
-import ThreatMapIframe from './components/ThreatMap';
+import Org from './components/org';
 import Kaspersky from './components/kaspersky';
 import APTDashboard from './components/APTDashboard';
-import OTXPulses from './components/OTXPulses';  // Import the new component
+import Tweets from './components/Tweets';  // Import the new component
 import './App.css';
 
 function App() {
@@ -16,9 +16,9 @@ function App() {
     } else if (activeTab === 'APTGroups') {
       return <APTDashboard />;
     } else if (activeTab === 'Feed') {  // Add condition for OTXPulses
-      return <OTXPulses />;
-    } else if (activeTab === 'OrganizationChecks') {  // Add condition for OTXPulses
-      return <OTXPulses />;
+      return <Tweets />;
+    } else if (activeTab === 'OrganizationActivity') {  // Add condition for OTXPulses
+      return <Org />;
     }
   };
 
@@ -45,10 +45,10 @@ function App() {
           APT Groups
         </div>
         <div 
-          className={`tab ${activeTab === 'OrganizationChecks' ? 'active' : ''}`} 
-          onClick={() => setActiveTab('OrganizationChecks')}
+          className={`tab ${activeTab === 'OrganizationActivity' ? 'active' : ''}`} 
+          onClick={() => setActiveTab('OrganizationActivity')}
         >
-          Organization Checks
+          Organization Activity
         </div>
       </div>
       <main>
