@@ -15,7 +15,7 @@
 
 ### Steps:
 
-1. First install Node.js on your machine. Download it from official website
+1. First install Node.js on your machine. Download it from official website: <a href="https://nodejs.org/en/learn/getting-started/how-to-install-nodejs">Download and Install Node.js</a>
 2. Fork this repository and clone your fork to your machine with this git command:
 ```
 git clone https://github.com/<your-github-username>/Capstone-Project-GB-B5.git
