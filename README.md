@@ -25,7 +25,7 @@ Clone this repository to your machine with git command
 ```
 git clone https://github.com/ShreeluSantosh/Capstone-Project-GB-B5.git
 ```
-3. Navigate to the directory "TIP Dashboard prototype" with this command: `cd "TIP Dashboard prototype"`
+3. Navigate inside the project root, and to the directory "TIP Dashboard prototype" with this command: `cd "TIP Dashboard prototype"`
 4. Install React with this command: `npm install react`
 5. Then install two npm packages needed to get the dashboard's backend in proper working condition: `npm install axios papaparse`
 6. Finally, start the dashboard with `npm start`
