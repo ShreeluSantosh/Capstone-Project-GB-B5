@@ -2,11 +2,11 @@
 
 ## Tasks for Phase 1 - Review 2
 
-1. Build web dashboard
-2. Research on APT groups and build MongoDB threat repository
-3. Tweet collection 
-4. Dataset processing and sorting
-5. Model building and training
+1. [ ] Build web dashboard
+2. [ ] Research on APT groups and build MongoDB threat repository
+3. [ ] Tweet collection 
+4. [ ] Dataset processing and sorting
+5. [ ] Model building and training
 
 ## Running the dashboard:
 
