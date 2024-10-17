@@ -4,7 +4,8 @@ import React from 'react';
 const Header = () => {
   return (
     <header className="App-header">
-      <h1>Threat Intelligence Platform Dashboard - Concept Site</h1>
+      <h1>TweetBeacon</h1>
+      <h5> Secure AI Threat Intelligence Platform Dashboard</h5>
     </header>
   );
 };

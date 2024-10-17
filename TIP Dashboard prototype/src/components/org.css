@@ -1,56 +1,153 @@
+/* org.css */
+
+/* Main Container */
 .container {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  background-color: #1f262e;
+  border-radius: 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.5);
+  color: #f2f1e8;
+}
+
+/* Panels Layout */
+.panel {
+  flex: 1;
+  background-color: #2e4769;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Left Panel (Statistics) */
+.left-panel {
+  max-width: 300px;
+}
+
+.left-panel h2 {
+  color: #fad02c;
+  margin-bottom: 10px;
+}
+
+.left-panel ul {
+  padding: 0;
+  list-style: none;
+}
+
+.left-panel ul li {
+  padding: 5px 0;
+  border-bottom: 1px solid #4c7c71;
+}
+
+/* Right Panel (Activities) */
+.right-panel {
+  flex: 3;
+}
+
+/* Search Form */
+form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+form input {
+  flex: 1;
+  padding: 10px;
+  background-color: #1f262e;
+  border: 1px solid #4c7c71;
+  border-radius: 5px;
+  color: #f2f1e8;
+}
+
+form input::placeholder {
+  color: #4c7c71;
+}
+
+form button {
+  padding: 10px 15px;
+  background-color: #4c7c71;
+  border: none;
+  border-radius: 5px;
+  color: #f2f1e8;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+form button:hover {
+  background-color: #fad02c;
+  color: #1f262e;
+}
+
+/* Activities List */
+.activities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/* Scrollbar Styling */
+.activities-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.activities-list::-webkit-scrollbar-thumb {
+  background-color: #4c7c71;
+  border-radius: 8px;
+}
+
+/* Activity Box */
+.activity-box {
+  padding: 15px;
+  background-color: #1f262e;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+.activity-box:hover {
+  background-color: #4c7c71;
+  transform: scale(1.02);
+}
+
+/* Loader Styling */
+.loader-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #1f262e;
+  color: #f2f1e8;
+}
+
+.loader {
+  margin-top: 10px;
+  width: 40px;
+  height: 40px;
+  border: 4px solid #4c7c71;
+  border-top: 4px solid #fad02c;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
   }
 
-  /* Remove default list styling */
-ul {
-    list-style-type: none; /* Removes bullets */
-    padding: 0; /* Removes default padding */
-    margin: 0; /* Removes default margin */
-  }
-  
-  li {
-    margin-bottom: 10px; /* Adds space between list items */
-    padding: 5px; /* Optional: Adds padding around list items */
-    border-bottom: 1px solid #ddd; /* Optional: Adds a border line between items */
-  }
-  
-  
-  .panel {
-    width: 45%;
-  }
-  
   .left-panel {
-    border-right: 1px solid #ccc;
-    padding-right: 20px;
+    max-width: 100%;
   }
-  
-  .right-panel {
-    padding-left: 20px;
-  }
-  
-  .activity-box {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .loader-wrapper {
-    text-align: center;
-  }
-  
-  .loader {
-    border: 4px solid rgba(0,0,0,0.1);
-    border-left-color: #333;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-  
+}

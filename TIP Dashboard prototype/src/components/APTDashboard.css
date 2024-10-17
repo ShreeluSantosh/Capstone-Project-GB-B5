@@ -1,67 +1,129 @@
-/* src/components/APTDashboard.css */
+/* APTDashboard.css */
 
+/* Main Dashboard Layout - Two Columns */
 .apt-dashboard {
-    display: flex;
-    height: calc(100vh - 100px); /* Adjust height based on your header height */
-    padding: 20px;
-    box-sizing: border-box;
+  display: flex;  /* Align panels side by side */
+  flex-direction: row; /* Ensure horizontal alignment */
+  gap: 20px; /* Space between the two panels */
+  padding: 20px;
+  background-color: #1f262e;
+  border-radius: 10px;
+  box-sizing: border-box; /* Avoid layout shifts from padding */
+}
+
+/* Filter Section (Left Panel) */
+.apt-filters {
+  flex: 1; /* This panel will take up 1 part of the available space */
+  padding: 10px; /* Some padding for aesthetics */
+  background-color: #2e4769; /* Background color */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.5); /* Shadow effect */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.apt-filters:hover {
+  background-color: #3e5779; /* Slightly brighter on hover */
+}
+
+/* Search Input */
+.search-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #4c7c71; /* Border color */
+  border-radius: 5px; /* Rounded corners */
+  background-color: #1f262e; /* Background color */
+  color: #f2f1e8; /* Text color */
+  transition: border-color 0.3s; /* Smooth transition for border */
+}
+
+.search-input::placeholder {
+  color: #4c7c71; /* Placeholder color */
+}
+
+.search-input:focus {
+  outline: none; /* Remove default outline */
+  border-color: #fad02c; /* Highlight border on focus */
+}
+
+/* Filter Dropdowns */
+.filter-select {
+  padding: 10px;
+  background-color: #2e4769; /* Background color */
+  border: 1px solid #4c7c71; /* Border color */
+  color: #f2f1e8; /* Text color */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+.filter-select:hover {
+  background-color: #4c7c71; /* Change color on hover */
+}
+
+/* APT Group List (Middle Panel) */
+.apt-list {
+  flex: 1; /* This panel will also take up 1 part of the available space */
+  display: flex;
+  flex-direction: column; /* Arrange items in a column */
+  gap: 10px; /* Space between items */
+  background-color: #2e4769; /* Background color */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4); /* Shadow effect */
+  max-height: 400px; /* Limit height */
+  overflow-y: auto; /* Allow scrolling */
+}
+
+/* APT Group Tab */
+.apt-tab {
+  flex: 1; /* Flex grow for equal distribution */
+  background-color: #1f262e; /* Background color */
+  color: #f2f1e8; /* Text color */
+  padding: 10px; /* Padding */
+  border-radius: 8px; /* Rounded corners */
+  text-align: center; /* Centered text */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: transform 0.2s, background-color 0.3s; /* Transition effects */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3); /* Shadow effect */
+}
+
+.apt-tab:hover {
+  background-color: #4c7c71; /* Change background on hover */
+  transform: scale(1.05); /* Scale effect on hover */
+}
+
+.selected {
+  background-color: #fad02c; /* Selected background color */
+  color: #1f262e; /* Selected text color */
+}
+
+/* APT Group Details Section (Right Panel) */
+.apt-details {
+  flex: 1; /* This panel will also take up 1 part of the available space */
+  padding: 15px; /* Padding for content */
+  background-color: #2e4769; /* Background color */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3); /* Shadow effect */
+  color: #f2f1e8; /* Text color */
+  transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+.apt-details h3 {
+  color: #fad02c; /* Heading color */
+  margin-bottom: 10px; /* Margin below heading */
+}
+
+.apt-details p {
+  margin: 5px 0; /* Margin for paragraphs */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .apt-dashboard {
+    flex-direction: column; /* Stack vertically on small screens */
   }
   
-  .apt-filters {
-    margin-bottom: 20px;
+  .apt-filters, .apt-list, .apt-details {
+    flex: none; /* Remove flex growth */
+    width: 100%; /* Make them full width */
   }
-  
-  .search-input {
-    width: 60%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
-  }
-  
-  .filter-select {
-    width: 60%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
-  }
-  
-  .apt-list {
-    flex: 1;
-    border-right: 1px solid #ddd;
-    padding-right: 20px;
-    overflow-y: auto;
-  }
-  
-  .apt-tab {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-    cursor: pointer;
-    margin-bottom: 10px;
-    transition: background-color 0.3s, box-shadow 0.3s;
-  }
-  
-  .apt-tab:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .apt-tab.selected {
-    background-color: #e0e0e0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .apt-details {
-    flex: 2;
-    padding-left: 20px;
-    overflow-y: auto;
-  }
-  
-  .apt-details h3 {
-    margin-top: 0;
-  }
-  
+}

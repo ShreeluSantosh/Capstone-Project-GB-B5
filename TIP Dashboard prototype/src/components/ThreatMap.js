@@ -1,12 +1,17 @@
+// src/components/ThreatMapIframe.js
+
 import React from 'react';
+import './ThreatMapIframe.css'; // Import CSS for styling
 
 const ThreatMapIframe = () => {
   return (
-    <iframe
-      src="https://securitycenter.sonicwall.com/m/page/worldwide-attacks/"
-      style={{ width: '90%', height: '80vh', border: 'none', position: 'relative', top: '2', left: '0' }}
-      title="Radware Live Threat Map"
-    ></iframe>
+    <div className="iframe-container">
+      <iframe
+        src="https://securitycenter.sonicwall.com/m/page/worldwide-attacks/"
+        title="Radware Live Threat Map"
+        className="threat-map-iframe"
+      ></iframe>
+    </div>
   );
 };
 
