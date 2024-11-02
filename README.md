@@ -2,7 +2,7 @@
 
 ## Tasks for Phase 1 - Review 2
 
-1. [ ] Build web dashboard
+1. [X] Build web dashboard
 2. [ ] Research on APT groups and build MongoDB threat repository
 3. [ ] Tweet collection 
 4. [ ] Dataset processing and sorting
@@ -31,3 +31,9 @@ git clone https://github.com/ShreeluSantosh/Capstone-Project-GB-B5.git
 4. Install React with this command: `npm install react`
 5. Then install two npm packages needed to get the dashboard's backend in proper working condition: `npm install axios papaparse`
 6. Finally, start the dashboard with `npm start`
+
+### Enabling Lookup
+
+1. Go to `/TIP Dashboard prototype` directory. You'll find a `env.txt`.
+2. Create a `.env` file inside `/TIP Dashboard prototype` directory
+3. Copy and paste the contents of `env.txt` into `.env` file (You cna do it in VS Code) and save the changes.
