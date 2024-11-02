@@ -4,27 +4,30 @@ import Header from './components/Header';
 import Org from './components/org';
 import Kaspersky from './components/kaspersky';
 import APTDashboard from './components/APTDashboard';
-import Tweets from './components/Tweets';  // Import the new component
+import Tweets from './components/Tweets';  
+import Lookup from './components/Lookup';
 import './App.css';
 
 function App() {
-  const [activeTab, setActiveTab] = useState('ThreatMap'); // State to manage the active tab
+  const [activeTab, setActiveTab] = useState('ThreatMap'); 
 
   const renderContent = () => {
     if (activeTab === 'ThreatMap') {
       return <Kaspersky />;
     } else if (activeTab === 'APTGroups') {
       return <APTDashboard />;
-    } else if (activeTab === 'Feed') {  // Add condition for OTXPulses
+    } else if (activeTab === 'Feed') {  
       return <Tweets />;
-    } else if (activeTab === 'OrganizationActivity') {  // Add condition for OTXPulses
+    } else if (activeTab === 'OrganizationActivity') {  
       return <Org />;
+    } else if (activeTab === 'Lookup') { 
+      return <Lookup />;
     }
   };
 
   return (
     <div className="App">
-      <Header />
+        <Header />
       <div className="tabs">
         <div 
           className={`tab ${activeTab === 'ThreatMap' ? 'active' : ''}`} 
@@ -49,6 +52,12 @@ function App() {
           onClick={() => setActiveTab('OrganizationActivity')}
         >
           Organization Activity
+        </div>
+        <div 
+          className={`tab ${activeTab === 'Lookup' ? 'active' : ''}`} 
+          onClick={() => setActiveTab('Lookup')}
+        >
+          Lookup
         </div>
       </div>
       <main>

@@ -1,0 +1,33 @@
+/* src/components/Lookup.css */
+
+.lookup-container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    padding: 20px;
+    gap: 20px; /* Adds space between the two panels */
+  }
+  
+  .lookup-panel {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #2e4769;
+  }
+  
+  .lookup-results {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #2e4769;
+  }
+  
+  .lookup-search input {
+    width: calc(100% - 110px); /* Width minus button width */
+    padding: 10px;
+    margin-right: 10px;
+  }
+  
+  .lookup-search button {
+    padding: 10px;
+  }
+  
