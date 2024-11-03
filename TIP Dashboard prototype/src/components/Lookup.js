@@ -17,12 +17,11 @@ const Lookup = () => {
     try {
       let data = null;
 
-      // Determine if the query is a CVE ID, IP, hash, or domain
       if (query.startsWith("CVE-")) {
         data = await fetchCVEData(query);
       } else {
         const apiKey = process.env.REACT_APP_VIRUSTOTAL_API_KEY;
-        data = await fetchIoCData(query, apiKey); // Make sure to pass the right arguments
+        data = await fetchIoCData(query, apiKey);
       }
 
       setResults(data);
@@ -36,8 +35,11 @@ const Lookup = () => {
 
   return (
     <div className="lookup-container">
-      <div className="lookup-panel">
+      {/* Left panel */}
+      <div className="lookup-sidebar">
         <h2>Threat Intelligence Lookup</h2>
+        <p>Look up a CVE, IP address, hash, or domain here</p>
+        {/* Add more statistics or options here */}
         <div className="lookup-search">
           <input
             type="text"
@@ -47,15 +49,19 @@ const Lookup = () => {
           />
           <button onClick={handleSearch}>Search</button>
         </div>
+      </div>
+
+      {/* Right panel */}
+      <div className="lookup-results">
         {loading && <p>Loading...</p>}
         {error && <p className="error">{error}</p>}
-      </div>
-      <div className="lookup-results">
-        {results && (
+        {results ? (
           <div>
             <h3>Results</h3>
             <pre>{JSON.stringify(results, null, 2)}</pre>
           </div>
+        ) : (
+          <p>Search for a CVE or domain to view results.</p>
         )}
       </div>
     </div>

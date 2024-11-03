@@ -1,33 +1,61 @@
 /* src/components/Lookup.css */
 
 .lookup-container {
-    display: flex;
-    flex-direction: column; /* Stack items vertically */
-    padding: 20px;
-    gap: 20px; /* Adds space between the two panels */
-  }
-  
-  .lookup-panel {
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #2e4769;
-  }
-  
-  .lookup-results {
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #2e4769;
-  }
-  
-  .lookup-search input {
-    width: calc(100% - 110px); /* Width minus button width */
-    padding: 10px;
-    margin-right: 10px;
-  }
-  
-  .lookup-search button {
-    padding: 10px;
-  }
-  
+  display: flex;
+  height: 100vh; /* Make the layout take full viewport height */
+  background-color: #1e2a38; /* Background similar to your screenshot */
+  color: #eaeaea; /* Light text color */
+}
+
+.lookup-sidebar {
+  width: 25%; /* Sidebar width */
+  padding: 20px;
+  background-color: #22303c; /* Darker color for sidebar */
+  border-right: 2px solid #2a3948;
+}
+
+.lookup-results {
+  width: 75%; /* Main content width */
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #2a3948; /* Slightly lighter background for content */
+}
+
+h2, h3 {
+  color: #f9c74f; /* Bright yellow color for headers */
+}
+
+.lookup-search {
+  margin-top: 20px;
+}
+
+.lookup-search input {
+  width: calc(100% - 80px); /* Space for button */
+  padding: 8px;
+  margin-right: 10px;
+  background-color: #1e2a38;
+  color: #eaeaea;
+  border: 1px solid #2a3948;
+  border-radius: 4px;
+}
+
+.lookup-search button {
+  padding: 8px 16px;
+  background-color: #556b7f; /* Darker green */
+  color: #eaeaea;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.lookup-search button:hover {
+  background-color: #3c4f62; /* Darker shade for hover */
+}
+
+.lookup-results pre {
+  background-color: #1e2a38;
+  padding: 15px;
+  border-radius: 4px;
+  color: #eaeaea;
+  overflow-x: auto;
+}
