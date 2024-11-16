@@ -1,0 +1,10 @@
+pandas
+numpy
+emoji
+re
+scikit-learn
+tensorflow
+whois
+python-whois
+datetime
+mechanicalsoup
