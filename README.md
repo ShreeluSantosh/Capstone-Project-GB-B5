@@ -4,9 +4,9 @@
 
 1. [X] Build web dashboard
 2. [ ] Research on APT groups and build MongoDB threat repository
-3. [ ] Tweet collection 
-4. [ ] Dataset processing and sorting
-5. [ ] Model building and training
+3. [X] Tweet collection 
+4. [X] Dataset processing and sorting
+5. [X] Model building and training
 
 ## Running the dashboard:
 
