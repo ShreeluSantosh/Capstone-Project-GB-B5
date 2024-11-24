@@ -37,3 +37,4 @@ git clone https://github.com/ShreeluSantosh/Capstone-Project-GB-B5.git
 1. Go to `/TIP Dashboard prototype` directory. You'll find a `env.txt`.
 2. Create a `.env` file inside `/TIP Dashboard prototype` directory
 3. Copy and paste the contents of `env.txt` into `.env` file (You can do it in VS Code) and save the changes.
+4. For temporary access to proxy via Heroku's CORS Anywhere, visit `https://cors-anywhere.herokuapp.com/corsdemo` and click on "Request temporary access to the demo server"
