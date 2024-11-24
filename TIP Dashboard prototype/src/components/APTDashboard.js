@@ -89,10 +89,13 @@ const APTDashboard = () => {
         {selectedGroup ? (
           <>
             <h3>{selectedGroup['APT Name']}</h3>
-            <p><strong>Country of Origin:</strong> {selectedGroup['Country of Origin']}</p>
-            <p><strong>Sectors:</strong> {selectedGroup['Sectors']}</p>
-            <p><strong>Motivation:</strong> {selectedGroup['Motivation']}</p>
-            <p><strong>Tools Used:</strong> {selectedGroup['Tools Used']}</p>
+            <p><strong>Description:</strong> <br/> {selectedGroup['Description']}</p>
+            <p><strong>Country of Origin:</strong> <br/> {selectedGroup['Country of Origin']}</p>
+            <p><strong>Sectors:</strong> <br/> {selectedGroup['Sectors']}</p>
+            <p><strong>Motivation:</strong> <br/> {selectedGroup['Motivation']}</p>
+            <p><strong>Tools Used:</strong> <br/> {selectedGroup['Tools Used']}</p>
+            <p><strong>TTPs:</strong> <br/> {selectedGroup['TTPs']}</p>
+            <p><strong>Recent News:</strong> <br/> {selectedGroup['Recent News']}</p>
           </>
         ) : (
           <p>Please select an APT group to see the details.</p>
