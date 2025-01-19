@@ -7,7 +7,7 @@ const app = express();
 const PORT = 5001;
 
 const corsOptions = {
-    origin: 'http://localhost:3000', 
+    origin: ['http://localhost:3000', 'https://tweetbeacon-demo.vercel.app/'],
     optionsSuccessStatus: 200,
   };
   app.use(cors(corsOptions));

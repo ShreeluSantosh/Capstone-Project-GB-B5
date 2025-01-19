@@ -3,7 +3,11 @@ const { MongoClient } = require('mongodb');
 const cors = require('cors');
 
 const app = express();
-app.use(cors());
+const corsOptions = {
+    origin: ['http://localhost:3000', 'https://tweetbeacon-demo.vercel.app/'],
+    optionsSuccessStatus: 200,
+  };
+  app.use(cors(corsOptions));
 app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
