@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Papa from 'papaparse'; // Library to parse CSV data
 import './Loader.css'; // Ensure this path is correct
 import './Tweets.css'; // Create this file for custom styles
 
-const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTmQnHL_SUh0YtYT8ULA74isNtVSZbjV0eBrg4Z41k60QxVnaw-2xzpijn_8UJf7zNJ3VjRXZfp77uH/pub?gid=0&single=true&output=csv'; // Replace with your actual CSV file URL
+const API_URL = 'http://localhost:5001/api/tweets'; // Replace with your actual API endpoint
 
 const Tweets = () => {
   const [tweets, setTweets] = useState([]);
@@ -17,22 +16,10 @@ const Tweets = () => {
       setLoading(true);
 
       try {
-        // Fetch CSV data
-        const response = await axios.get(CSV_URL);
-        // Parse CSV data
-        Papa.parse(response.data, {
-          header: true,
-          skipEmptyLines: true,
-          complete: (results) => {
-            // Set parsed data to state
-            setTweets(results.data);
-            setLoading(false);
-          },
-          error: (parseError) => {
-            setError(`Parsing Error: ${parseError.message}`);
-            setLoading(false);
-          }
-        });
+        // Fetch tweets from the server
+        const response = await axios.get(API_URL);
+        setTweets(response.data); // Assuming the API returns an array of tweets
+        setLoading(false);
       } catch (fetchError) {
         setError(`Fetch Error: ${fetchError.message}`);
         setLoading(false);
