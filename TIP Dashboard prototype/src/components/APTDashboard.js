@@ -1,7 +1,22 @@
-// src/components/APTDashboard.js
 import React, { useEffect, useState } from 'react';
-import { fetchAPTData } from '../services/sheetService';
 import './APTDashboard.css';
+
+// Define the API URL directly in this component
+const API_URL = 'https://tweetbeacon-demo.vercel.app/api/apt-groups';
+
+const fetchAPTData = async () => {
+  try {
+    const response = await fetch(API_URL);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch: ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching APT data:', error);
+    return [];
+  }
+};
 
 const APTDashboard = () => {
   const [aptGroups, setAptGroups] = useState([]);
