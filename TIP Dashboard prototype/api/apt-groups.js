@@ -4,47 +4,41 @@ const cors = require('cors');
 
 const app = express();
 const corsOptions = {
-    origin: ['http://localhost:3000', 'https://tweetbeacon-demo.vercel.app/'],
-    optionsSuccessStatus: 200,
-  };
-  app.use(cors(corsOptions));
+  origin: ['https://tweetbeacon-demo.vercel.app'],
+  optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
-const PORT = process.env.PORT || 5000;
-
-// MongoDB connection
 const mongoURI = 'mongodb+srv://shreelu:2A8bc9ws@cluster0.irbc4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0>';
 const client = new MongoClient(mongoURI);
 
-let db;
+let db = null;
+
+// Function to initialize the database connection
 const connectToDatabase = async () => {
-  try {
-    await client.connect();
-    db = client.db('Threat_Actors'); // Replace with your database name
-    console.log('Connected to MongoDB');
-  } catch (err) {
-    console.error('Error connecting to MongoDB:', err);
+  if (!db) {
+    try {
+      await client.connect();
+      db = client.db('Threat_Actors'); // Replace with your database name
+      console.log('Connected to MongoDB');
+    } catch (err) {
+      console.error('Error connecting to MongoDB:', err);
+      throw new Error('Failed to connect to database');
+    }
   }
 };
 
-connectToDatabase();
-
-// API route to fetch all APT groups
+// Endpoint to fetch all APT groups
 app.get('/api/apt-groups', async (req, res) => {
   try {
-    const aptGroups = await db.collection('APTGroups').find({}).toArray(); // Replace with your collection name
-    res.json(aptGroups);
+    await connectToDatabase(); // Ensure the database is connected
+    const aptGroups = await db.collection('APTGroups').find({}).toArray();
+    res.status(200).json(aptGroups);
   } catch (err) {
     console.error('Error fetching APT groups:', err);
     res.status(500).send('Error fetching APT groups');
   }
 });
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-// Gracefully handle server shutdown
-process.on('SIGINT', async () => {
-  await client.close();
-  console.log('MongoDB connection closed');
-  process.exit(0);
-});
+module.exports = app;
