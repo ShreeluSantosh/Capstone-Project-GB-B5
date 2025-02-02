@@ -3,7 +3,7 @@ import axios from 'axios';
 import './Loader.css'; // Ensure this path is correct
 import './Tweets.css'; // Create this file for custom styles
 
-const API_URL = 'http://localhost:5001/api/tweets'; // Replace with your actual API endpoint
+const API_URL = 'https://tweetbeacon-demo.vercel.app/api/tweets'; // Replace with your actual API endpoint
 
 const Tweets = () => {
   const [tweets, setTweets] = useState([]);
