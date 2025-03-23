@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Papa from 'papaparse'; // Library to parse CSV data
+import Loader from './Loader';
 import './Loader.css'; // Ensure this path is correct
 import './org.css'; // Create this file for custom styles
 
@@ -14,8 +15,6 @@ const ActivityDashboard = () => {
   
     useEffect(() => {
       const fetchData = async () => {
-        setLoading(true);
-  
         try {
           const response = await axios.get(CSV_URL);
           console.log('CSV Data:', response.data); // Log raw CSV data
@@ -25,20 +24,22 @@ const ActivityDashboard = () => {
             complete: (results) => {
               console.log('Parsed Results:', results.data); // Log parsed data
               setData(results.data);
-              setLoading(false);
             },
             error: (parseError) => {
               setError(`Parsing Error: ${parseError.message}`);
-              setLoading(false);
             }
           });
         } catch (fetchError) {
           setError(`Fetch Error: ${fetchError.message}`);
-          setLoading(false);
         }
       };
-  
+
       fetchData();
+
+      // Ensure the loader stays visible for exactly 4 seconds
+      const timer = setTimeout(() => setLoading(false), 3000);
+
+      return () => clearTimeout(timer); // Cleanup timeout when component unmounts
     }, []);
   
     const handleSearchChange = (event) => {
@@ -66,14 +67,9 @@ const ActivityDashboard = () => {
     }, {})).sort((a, b) => b[1] - a[1]);
   
     if (loading) {
-      return (
-        <div className="loader-wrapper">
-          <h2>Loading Activities...</h2>
-          <div className="loader"></div>
-        </div>
-      );
+      return <Loader />;
     }
-  
+
     if (error) return <div>{error}</div>;
   
     return (

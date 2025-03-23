@@ -3,7 +3,7 @@ import React from 'react';
 
 const KasperskyMap = () => {
   return (
-    <div style={{ width: '55%', height: '500px', overflow: 'hidden', position: 'relative' }}>
+    <div style={{ width: '100%', height: '500px', overflow: 'hidden', position: 'relative' }}>
       <iframe
         src="https://cybermap.kaspersky.com/en/widget/dynamic/dark"
         width="100%"

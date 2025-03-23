@@ -42,7 +42,7 @@
 
 .search-input:focus {
   outline: none; /* Remove default outline */
-  border-color: #fad02c; /* Highlight border on focus */
+  border-color: #10ccac; /* Highlight border on focus */
 }
 
 /* Filter Dropdowns */

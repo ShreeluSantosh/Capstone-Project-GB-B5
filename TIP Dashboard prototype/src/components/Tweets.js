@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Loader from './Loader';
 import './Loader.css'; // Ensure this path is correct
 import './Tweets.css'; // Create this file for custom styles
 
@@ -51,13 +52,18 @@ const Tweets = () => {
     return acc;
   }, {})).sort((a, b) => b[1] - a[1]);
 
+  // if (loading) {
+  //   return (
+  //     <div className="loader-wrapper">
+  //       <h2>Loading Tweets...</h2>
+  //       <div className="loader"></div>
+  //     </div>
+  //   );
+  // }
+
   if (loading) {
-    return (
-      <div className="loader-wrapper">
-        <h2>Loading Tweets...</h2>
-        <div className="loader"></div>
-      </div>
-    );
+    <h2> Loading Tweets</h2>
+    return <Loader />;    
   }
 
   if (error) return <div>{error}</div>;
