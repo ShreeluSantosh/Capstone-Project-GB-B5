@@ -34,8 +34,9 @@
 
 /* Header Styles */
 .panel h2 {
-  color: #fad02c;
+  color: #ff00ff;
   margin-bottom: 15px;
+  border-radius: 50%;
 }
 
 .panel h3 {
@@ -115,7 +116,7 @@ button:hover {
 
 /* Individual Tweet Box */
 .tweet-box {
-  background-color: #2e4769;
+  background-color: #1f262e;
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 8px;
@@ -125,6 +126,7 @@ button:hover {
 
 .tweet-box:hover {
   transform: translateY(-5px);
+  background-color: #10ccad9b;
 }
 
 .tweet-box p {

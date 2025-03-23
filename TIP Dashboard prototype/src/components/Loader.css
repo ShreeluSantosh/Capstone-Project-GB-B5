@@ -1,5 +1,3 @@
-/* Loader.css */
-
 .loader-wrapper {
   display: flex;
   flex-direction: column;
@@ -12,23 +10,62 @@
 
 .loader-wrapper h2 {
   margin-bottom: 15px;
-  color: #fad02c;
+  color: #e600ac;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px #e600ac, 0 0 10px #ff00ff;
 }
 
 .loader {
-  border: 8px solid #4c7c71;
-  border-top: 8px solid #fad02c;
+  position: relative;
+  width: 200px; /* Ensure this matches your radar circle size */
+  height: 200px; /* Ensure this matches your radar circle size */
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  animation: spin 1s linear infinite;
+  background: radial-gradient(circle, #0d1117 60%, transparent 61%);
+  border: 2px solid #e600ac;
 }
 
-@keyframes spin {
-  0% {
+.sweep {
+  position: absolute;
+  top: -2px; /* Adjust for precise alignment */
+  left: -2px; /* Adjust for precise alignment */
+  width: calc(100% + 4px); /* Slightly larger than the radar circle */
+  height: calc(100% + 4px); /* Slightly larger than the radar circle */
+  border-radius: inherit; /* Match the circular shape */
+  background: conic-gradient(
+    rgba(0, 255, 0, 0),  
+    rgba(0,255,0,0.1),
+    rgba(0,255,0,0.4)
+    
+  );
+  animation: rotateSweep 3s linear infinite; /* 3s must be present */
+}
+
+@keyframes rotateSweep {
+  from {
     transform: rotate(0deg);
   }
-  100% {
+  to {
     transform: rotate(360deg);
+  }
+}
+.blip {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: #ff00ff; /* Glowing purple dots */
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: blipAnimation 0.5s ease-out forwards;
+}
+
+@keyframes blipAnimation {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 1;
   }
 }
