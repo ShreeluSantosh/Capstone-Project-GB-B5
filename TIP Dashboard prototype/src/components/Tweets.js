@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Loader from './Loader';
-import './Loader.css'; // Ensure this path is correct
-import './Tweets.css'; // Create this file for custom styles
+import React, { useState, useEffect } from 'react';
+import './components.css';
 
-const API_URL = 'https://tweetbeacon-demo.vercel.app/api/tweets'; // Replace with your actual API endpoint
+const API_URL = 'https://tweetbeacon-demo.vercel.app/api/tweets';
 
 const Tweets = () => {
   const [tweets, setTweets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   useEffect(() => {
     const fetchTweets = async () => {
-      setLoading(true);
-
       try {
-        // Fetch tweets from the server
-        const response = await axios.get(API_URL);
-        setTweets(response.data); // Assuming the API returns an array of tweets
-        setLoading(false);
-      } catch (fetchError) {
-        setError(`Fetch Error: ${fetchError.message}`);
+        setLoading(true);
+        const response = await fetch(API_URL);
+        if (!response.ok) {
+          throw new Error('Failed to fetch tweets');
+        }
+        const data = await response.json();
+        setTweets(data);
+      } catch (err) {
+        setError('Failed to load tweets. Please try again later.');
+      } finally {
         setLoading(false);
       }
     };
@@ -30,80 +30,73 @@ const Tweets = () => {
     fetchTweets();
   }, []);
 
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
-
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-    // Trigger re-render to filter tweets
-  };
-
-  // Filter and sort tweets
-  const filteredTweets = tweets.filter(tweet =>
-    tweet.tweet && tweet.tweet.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const sortedTweets = filteredTweets.slice().sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-
-  // Count tweets by user_account and sort by tweet count in descending order
-  const tweetCountsByUser = Object.entries(filteredTweets.reduce((acc, tweet) => {
-    acc[tweet.user_account] = (acc[tweet.user_account] || 0) + 1;
-    return acc;
-  }, {})).sort((a, b) => b[1] - a[1]);
-
-  // if (loading) {
-  //   return (
-  //     <div className="loader-wrapper">
-  //       <h2>Loading Tweets...</h2>
-  //       <div className="loader"></div>
-  //     </div>
-  //   );
-  // }
-
   if (loading) {
-    <h2> Loading Tweets</h2>
-    return <Loader />;    
+    return (
+      <div className="loading-state">
+        <div className="loading-spinner"></div>
+        <p>Loading tweets...</p>
+      </div>
+    );
   }
 
-  if (error) return <div>{error}</div>;
+  if (error) {
+    return (
+      <div className="error-state">
+        <h3>Error</h3>
+        <p>{error}</p>
+        <button onClick={() => window.location.reload()}>Retry</button>
+      </div>
+    );
+  }
+
+  const categories = [...new Set(tweets.map(tweet => tweet.category))];
+  
+  const filteredTweets = tweets.filter(tweet => {
+    const matchesSearch = tweet.tweet.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         tweet.user_account.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = !selectedCategory || tweet.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
-    <div className="container">
-      <div className="panel left-panel">
-        <h2>Statistics</h2>
-        <p><strong>Total Tweets:</strong> {filteredTweets.length}</p>
-        <h3>Tweets by User Account</h3>
-        <ul>
-          {tweetCountsByUser.map(([user, count]) => (
-            <li key={user}>{user}: {count}</li>
+    <div className="component-container">
+      <div className="filter-group">
+        <input
+          type="text"
+          className="search-bar"
+          placeholder="Search tweets..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <select
+          className="filter-select"
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
+          <option value="">All Categories</option>
+          {categories.map(category => (
+            <option key={category} value={category}>{category}</option>
           ))}
-        </ul>
+        </select>
       </div>
-      <div className="panel right-panel">
-        <h2>Tweets</h2>
-        <form onSubmit={handleSearchSubmit}>
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={handleSearchChange}
-            placeholder="Search..."
-          />
-          <button type="submit">Search</button>
-        </form>
-        <div className="tweets-list">
-          {sortedTweets.length === 0 ? (
-            <p>No tweets found.</p>
-          ) : (
-            sortedTweets.map((tweet, index) => (
-              <div key={index} className="tweet-box">
-                <p><strong>Tweet:</strong> {tweet.tweet || 'No content available'}</p>
-                <p><strong>Timestamp:</strong> {tweet.timestamp ? new Date(tweet.timestamp).toLocaleString() : 'Unknown'}</p>
-                <p><strong>Account:</strong> {tweet.user_account || 'Anonymous'}</p>
+
+      <div className="grid">
+        {filteredTweets.map(tweet => (
+          <div key={tweet.id} className="card">
+            <div className="card-header">
+              <h3>{tweet.user_account}</h3>
+              <span className="tag">{tweet.category}</span>
+            </div>
+            <p>{tweet.tweet}</p>
+            <div className="card-footer">
+              <span>{new Date(tweet.timestamp).toLocaleString()}</span>
+              <div className="card-actions">
+                <button className="button">View Thread</button>
+                <button className="button secondary">Share</button>
               </div>
-            ))
-          )}
-        </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

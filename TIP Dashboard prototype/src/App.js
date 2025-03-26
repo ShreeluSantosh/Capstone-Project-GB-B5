@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from "react-oidc-context";
 import Header from './components/Header';
 import Org from './components/org';
@@ -9,7 +9,8 @@ import Lookup from './components/Lookup';
 import './App.css';
 
 function App() {
-  const [activeTab, setActiveTab] = React.useState('ThreatMap');
+  const [activeTab, setActiveTab] = useState('ThreatMap');
+  const [isLoading, setIsLoading] = useState(true);
   const auth = useAuth();
 
   useEffect(() => {
@@ -17,23 +18,14 @@ function App() {
     if (auth.isAuthenticated) {
       console.log('User authenticated:', auth.user?.profile);
     }
+    // Add a small delay to show loading animation
+    const timer = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(timer);
   }, [auth.isAuthenticated, auth.user]);
-
-  const signOutRedirect = async () => {
-    try {
-      await auth.removeUser(); // Clear local auth state first
-      const clientId = "1u03g2n0diall88giqu2dmpt73";
-      const logoutUri = "https://tweetbeacon-demo.vercel.app/";
-      const cognitoDomain = "https://us-east-1gorfjmvhw.auth.us-east-1.amazoncognito.com";
-      window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
-    } catch (error) {
-      console.error('Logout error:', error);
-      window.location.href = "https://tweetbeacon-demo.vercel.app/";
-    }
-  };
 
   const handleSignIn = async () => {
     try {
+      setIsLoading(true);
       await auth.signinRedirect({
         redirect_uri: "https://tweetbeacon-demo.vercel.app/",
         extraQueryParams: {
@@ -44,6 +36,7 @@ function App() {
       });
     } catch (err) {
       console.error('Sign-in error:', err);
+      setIsLoading(false);
       const loginUrl = new URL('https://us-east-1gorfjmvhw.auth.us-east-1.amazoncognito.com/login');
       loginUrl.searchParams.append('client_id', '1u03g2n0diall88giqu2dmpt73');
       loginUrl.searchParams.append('response_type', 'code');
@@ -53,11 +46,34 @@ function App() {
     }
   };
 
-  if (auth.isLoading) {
+  const handleSignOut = async () => {
+    try {
+      setIsLoading(true);
+      await auth.removeUser();
+      const clientId = "1u03g2n0diall88giqu2dmpt73";
+      const logoutUri = "https://tweetbeacon-demo.vercel.app/";
+      const cognitoDomain = "https://us-east-1gorfjmvhw.auth.us-east-1.amazoncognito.com";
+      window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
+    } catch (error) {
+      console.error('Logout error:', error);
+      setIsLoading(false);
+      window.location.href = "https://tweetbeacon-demo.vercel.app/";
+    }
+  };
+
+  const TABS = [
+    { id: 'ThreatMap', label: 'Threat Map', component: Kaspersky },
+    { id: 'Feed', label: 'Feed', component: Tweets },
+    { id: 'APTGroups', label: 'APT Groups', component: APTDashboard },
+    { id: 'OrganizationActivity', label: 'Organization Activity', component: Org },
+    { id: 'Lookup', label: 'Lookup', component: Lookup }
+  ];
+
+  if (isLoading || auth.isLoading) {
     return (
       <div className="loading-container">
         <div className="loading-spinner"></div>
-        <p>Loading authentication...</p>
+        <p>Loading TweetBeacon...</p>
       </div>
     );
   }
@@ -81,72 +97,45 @@ function App() {
   if (!auth.isAuthenticated) {
     return (
       <div className="login-container">
-        <h1>TweetBeacon</h1>
-        <p>Please sign in to access the dashboard</p>
-        <button 
-          className="login-button" 
-          onClick={handleSignIn}
-        >
-          Sign in with AWS
-        </button>
+        <div className="login-content">
+          <h1>TweetBeacon</h1>
+          <p>Cyber Threat Intelligence Dashboard</p>
+          <button 
+            className="login-button" 
+            onClick={handleSignIn}
+          >
+            Sign in with AWS
+          </button>
+        </div>
       </div>
     );
   }
 
-  const renderContent = () => {
-    if (activeTab === 'ThreatMap') {
-      return <Kaspersky />;
-    } else if (activeTab === 'APTGroups') {
-      return <APTDashboard />;
-    } else if (activeTab === 'Feed') {  
-      return <Tweets />;
-    } else if (activeTab === 'OrganizationActivity') {  
-      return <Org />;
-    } else if (activeTab === 'Lookup') { 
-      return <Lookup />;
-    }
-  };
+  const ActiveComponent = TABS.find(tab => tab.id === activeTab)?.component || TABS[0].component;
 
   return (
     <div className="App">
       <Header />
-      <div className="user-info">
-        <span>Welcome, {auth.user?.profile.email || 'User'}</span>
-        <button onClick={signOutRedirect}>Sign out</button>
+      <div className="main-container">
+        <div className="user-info">
+          <span>Welcome, {auth.user?.profile.email || 'User'}</span>
+          <button onClick={handleSignOut}>Sign out</button>
+        </div>
+        <nav className="tabs">
+          {TABS.map(tab => (
+            <button
+              key={tab.id}
+              className={`tab ${activeTab === tab.id ? 'active' : ''}`}
+              onClick={() => setActiveTab(tab.id)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </nav>
+        <main className="content-area">
+          <ActiveComponent />
+        </main>
       </div>
-      <div className="tabs">
-        <div 
-          className={`tab ${activeTab === 'ThreatMap' ? 'active' : ''}`} 
-          onClick={() => setActiveTab('ThreatMap')}
-        >
-          Threat Map
-        </div>
-        <div 
-          className={`tab ${activeTab === 'Feed' ? 'active' : ''}`} 
-          onClick={() => setActiveTab('Feed')}
-        >
-          Feed
-        </div>
-        <div 
-          className={`tab ${activeTab === 'APTGroups' ? 'active' : ''}`} 
-          onClick={() => setActiveTab('APTGroups')}
-        >
-          APT Groups
-        </div>
-        <div 
-          className={`tab ${activeTab === 'OrganizationActivity' ? 'active' : ''}`} 
-          onClick={() => setActiveTab('OrganizationActivity')}
-        >
-          Organization Activity
-        </div>
-        <div 
-          className={`tab ${activeTab === 'Lookup' ? 'active' : ''}`} 
-          onClick={() => setActiveTab('Lookup')}
-        >
-          Lookup
-        </div>
-      </div>
-      {renderContent()}
     </div>
   );
 }

@@ -1,11 +1,14 @@
 // src/components/Header.js
 import React from 'react';
+import './components.css';
 
 const Header = () => {
   return (
-    <header className="App-header">
-      <h1>TweetBeacon</h1>
-      <h5> Secure AI Threat Intelligence Platform Dashboard</h5>
+    <header className="header">
+      <div className="header-content">
+        <h1>TweetBeacon</h1>
+        <p>Cyber Threat Intelligence Dashboard</p>
+      </div>
     </header>
   );
 };

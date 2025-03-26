@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './APTDashboard.css';
 
-// Define the API URL directly in this component
 const API_URL = 'https://tweetbeacon-demo.vercel.app/api/apt-groups';
 
 const fetchAPTData = async () => {
@@ -24,98 +23,136 @@ const APTDashboard = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedSector, setSelectedSector] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const loadAPTData = async () => {
-      const data = await fetchAPTData();
-      setAptGroups(data);
+      try {
+        setLoading(true);
+        const data = await fetchAPTData();
+        setAptGroups(data);
+      } catch (err) {
+        setError('Failed to load APT group data. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
     };
     loadAPTData();
   }, []);
 
-  const handleGroupClick = (group) => {
-    setSelectedGroup(group);
-  };
+  const filteredGroups = aptGroups.filter(group => {
+    const matchesSearch = group['APT Name'].toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         group['Description'].toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCountry = !selectedCountry || group['Country of Origin'] === selectedCountry;
+    const matchesSector = !selectedSector || group['Sectors'].includes(selectedSector);
+    return matchesSearch && matchesCountry && matchesSector;
+  });
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+  const uniqueCountries = [...new Set(aptGroups.map(group => group['Country of Origin']))].filter(Boolean);
+  const uniqueSectors = [...new Set(aptGroups.flatMap(group => group['Sectors'].split(', ')))].filter(Boolean);
 
-  const handleCountryChange = (event) => {
-    setSelectedCountry(event.target.value);
-  };
+  if (loading) {
+    return (
+      <div className="loading-state">
+        <div className="loading-spinner"></div>
+        <p>Loading APT group data...</p>
+      </div>
+    );
+  }
 
-  const handleSectorChange = (event) => {
-    setSelectedSector(event.target.value);
-  };
-
-  const countries = [...new Set(aptGroups.map(group => group['Country of Origin']))];
-  const sectors = [...new Set(aptGroups.flatMap(group => group['Sectors'].split(', ')))];
-
-  const filteredGroups = aptGroups.filter(group =>
-    group['APT Name'].toLowerCase().includes(searchTerm.toLowerCase()) &&
-    (selectedCountry === '' || group['Country of Origin'] === selectedCountry) &&
-    (selectedSector === '' || group['Sectors'].includes(selectedSector))
-  );
+  if (error) {
+    return (
+      <div className="error-state">
+        <h3>Error</h3>
+        <p>{error}</p>
+        <button onClick={() => window.location.reload()}>Retry</button>
+      </div>
+    );
+  }
 
   return (
     <div className="apt-dashboard">
-      <div className="apt-filters">
+      <div className="apt-controls">
         <input
           type="text"
-          placeholder="Search APT Groups..."
+          className="apt-search"
+          placeholder="Search APT groups..."
           value={searchTerm}
-          onChange={handleSearchChange}
-          className="search-input"
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
         <select
+          className="apt-filter"
           value={selectedCountry}
-          onChange={handleCountryChange}
-          className="filter-select"
+          onChange={(e) => setSelectedCountry(e.target.value)}
         >
           <option value="">All Countries</option>
-          {countries.map((country, index) => (
-            <option key={index} value={country}>{country}</option>
+          {uniqueCountries.map(country => (
+            <option key={country} value={country}>{country}</option>
           ))}
         </select>
         <select
+          className="apt-filter"
           value={selectedSector}
-          onChange={handleSectorChange}
-          className="filter-select"
+          onChange={(e) => setSelectedSector(e.target.value)}
         >
           <option value="">All Sectors</option>
-          {sectors.map((sector, index) => (
-            <option key={index} value={sector}>{sector}</option>
+          {uniqueSectors.map(sector => (
+            <option key={sector} value={sector}>{sector}</option>
           ))}
         </select>
       </div>
-      <div className="apt-list">
-        {filteredGroups.map((group, index) => (
-          <div 
-            key={index} 
-            className={`apt-tab ${selectedGroup === group ? 'selected' : ''}`}
-            onClick={() => handleGroupClick(group)}
+
+      <div className="apt-grid">
+        {filteredGroups.map(group => (
+          <div
+            key={group['APT Name']}
+            className={`apt-card ${selectedGroup?.['APT Name'] === group['APT Name'] ? 'selected' : ''}`}
+            onClick={() => setSelectedGroup(group)}
           >
-            {group['APT Name']}
+            <h3>{group['APT Name']}</h3>
+            <p>{group['Description']}</p>
+            <p>Country: {group['Country of Origin']}</p>
+            <div>
+              {group['Sectors'].split(', ').map(sector => (
+                <span key={sector} className="tag">{sector}</span>
+              ))}
+            </div>
           </div>
         ))}
       </div>
-      <div className="apt-details">
-        {selectedGroup ? (
-          <>
-            <h3>{selectedGroup['APT Name']}</h3>
-            <p><strong>Description:</strong> <br/> {selectedGroup['Description']}</p>
-            <p><strong>Country of Origin:</strong> <br/> {selectedGroup['Country of Origin']}</p>
-            <p><strong>Sectors:</strong> <br/> {selectedGroup['Sectors']}</p>
-            <p><strong>Motivation:</strong> <br/> {selectedGroup['Motivation']}</p>
-            <p><strong>Tools Used:</strong> <br/> {selectedGroup['Tools Used']}</p>
-            <p><strong>TTPs:</strong> <br/> {selectedGroup['TTPs']}</p>
-            <p><strong>Recent News:</strong> <br/> {selectedGroup['Recent News']}</p>
-          </>
-        ) : (
-          <p>Please select an APT group to see the details.</p>
-        )}
-      </div>
+
+      {selectedGroup && (
+        <div className="apt-details">
+          <h2>{selectedGroup['APT Name']}</h2>
+          <div className="apt-details-grid">
+            <div className="apt-details-section">
+              <h4>Description</h4>
+              <p>{selectedGroup['Description']}</p>
+            </div>
+            <div className="apt-details-section">
+              <h4>Country of Origin</h4>
+              <p>{selectedGroup['Country of Origin']}</p>
+            </div>
+            <div className="apt-details-section">
+              <h4>Targeted Sectors</h4>
+              <ul>
+                {selectedGroup['Sectors'].split(', ').map(sector => (
+                  <li key={sector}>{sector}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="apt-details-section">
+              <h4>Tools and Techniques</h4>
+              <ul>
+                {selectedGroup['Tools Used'].split(', ').map(tool => (
+                  <li key={tool}>{tool}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
