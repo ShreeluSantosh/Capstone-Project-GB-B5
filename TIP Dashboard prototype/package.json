@@ -14,11 +14,13 @@
     "https-browserify": "^1.0.0",
     "mongodb": "^6.12.0",
     "mongoose": "^8.9.3",
+    "oidc-client-ts": "^2.4.0",
     "os-browserify": "^0.3.0",
     "papaparse": "^5.5.2",
     "process": "^0.11.10",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-oidc-context": "^2.3.1",
     "react-scripts": "5.0.1",
     "stream-http": "^3.2.0",
     "web-vitals": "^2.1.4"
@@ -46,5 +48,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@babel/helper-compilation-targets": "^7.24.0",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/preset-env": "^7.24.0",
+    "@babel/preset-react": "^7.23.3"
   }
 }
