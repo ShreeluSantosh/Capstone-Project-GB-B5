@@ -1,13 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
 
 :root {
-  --primary-color: #2c3e50;
-  --secondary-color: #34495e;
-  --accent-color: #3498db;
-  --background-color: #f8f9fa;
-  --error-color: #e74c3c;
-  --success-color: #2ecc71;
-  --border-color: #dee2e6;
+  --primary-bg: #1f262e;
+  --secondary-bg: #2c3440;
+  --header-bg: #1a1f25;
+  --text-primary: #e1e6eb;
+  --text-secondary: #a1a8b0;
+  --accent-color: #00ffff;
+  --border-color: #364049;
+  --error-color: #ff4757;
+  --success-color: #2ed573;
 }
 
 * {
@@ -18,9 +20,9 @@
 }
 
 body {
-  background-color: var(--background-color);
-  color: var(--primary-color);
-  line-height: 1.6;
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
+  min-height: 100vh;
 }
 
 .App {
@@ -29,57 +31,95 @@ body {
   flex-direction: column;
 }
 
-.main-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background-color: white;
+.header {
+  background-color: var(--header-bg);
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.login-container {
+.header h1 {
+  color: var(--accent-color);
+  font-size: 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.header h5 {
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.main-container {
+  flex: 1;
+  background-color: var(--primary-bg);
+}
+
+.tabs {
   display: flex;
+  background-color: var(--secondary-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0;
+  margin: 0;
+  overflow-x: auto;
+}
+
+.tab {
+  padding: 1rem 2rem;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.tab:hover {
+  color: var(--text-primary);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.tab.active {
+  color: var(--accent-color);
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.content-area {
+  padding: 2rem;
+  background-color: var(--primary-bg);
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: white;
-  padding: 2rem;
+  background-color: var(--primary-bg);
 }
 
-.login-content {
-  text-align: center;
-  max-width: 400px;
-  width: 100%;
-}
-
-.login-content h1 {
-  font-size: 2.5rem;
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-color);
+  border-top: 3px solid var(--accent-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
   margin-bottom: 1rem;
-  color: var(--primary-color);
-  letter-spacing: -1px;
 }
 
-.login-content p {
-  color: var(--secondary-color);
-  margin-bottom: 2rem;
-  font-size: 1.1rem;
+.loading-container p {
+  color: var(--text-secondary);
 }
 
-.login-button {
-  padding: 1rem 2rem;
-  font-size: 1rem;
-  background-color: var(--accent-color);
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s, background-color 0.2s;
-  font-family: 'Space Mono', monospace;
-  width: 100%;
-  max-width: 300px;
-}
-
-.login-button:hover {
-  background-color: #2980b9;
-  transform: translateY(-2px);
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .error-container {
@@ -89,21 +129,19 @@ body {
   justify-content: center;
   min-height: 100vh;
   padding: 2rem;
-  background-color: white;
+  background-color: var(--primary-bg);
   text-align: center;
 }
 
 .error-container h2 {
   color: var(--error-color);
   margin-bottom: 1rem;
-  font-size: 1.5rem;
 }
 
 .error-container p {
-  color: var(--secondary-color);
+  color: var(--text-secondary);
   margin-bottom: 2rem;
   max-width: 600px;
-  line-height: 1.5;
 }
 
 .error-actions {
@@ -113,54 +151,60 @@ body {
 
 .error-actions button {
   padding: 0.75rem 1.5rem;
-  font-size: 0.9rem;
   border: none;
   cursor: pointer;
-  transition: transform 0.2s, background-color 0.2s;
-  font-family: 'Space Mono', monospace;
-}
-
-.error-actions button:first-child {
-  background-color: var(--accent-color);
-  color: white;
-}
-
-.error-actions button:last-child {
-  background-color: var(--secondary-color);
-  color: white;
+  background-color: var(--secondary-bg);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
 }
 
 .error-actions button:hover {
-  transform: translateY(-2px);
+  background-color: var(--accent-color);
+  color: var(--primary-bg);
 }
 
-.loading-container {
+.login-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: white;
+  background-color: var(--primary-bg);
+  padding: 2rem;
 }
 
-.loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid var(--border-color);
-  border-top: 3px solid var(--accent-color);
-  border-radius: 0;
-  animation: spin 1s linear infinite;
+.login-content {
+  text-align: center;
+  max-width: 400px;
+}
+
+.login-content h1 {
+  color: var(--accent-color);
+  font-size: 2.5rem;
   margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
-.loading-container p {
-  color: var(--secondary-color);
+.login-content p {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.login-button {
+  padding: 1rem 2rem;
   font-size: 1rem;
+  background-color: var(--secondary-bg);
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.login-button:hover {
+  background-color: var(--accent-color);
+  color: var(--primary-bg);
 }
 
 .user-info {
@@ -168,13 +212,13 @@ body {
   align-items: center;
   justify-content: flex-end;
   padding: 1rem 2rem;
-  background-color: white;
+  background-color: var(--primary-bg);
   border-bottom: 1px solid var(--border-color);
 }
 
 .user-info span {
   margin-right: 1rem;
-  color: var(--primary-color);
+  color: var(--text-primary);
   font-weight: 700;
 }
 
@@ -182,7 +226,7 @@ body {
   padding: 0.5rem 1rem;
   font-size: 0.9rem;
   background-color: var(--error-color);
-  color: white;
+  color: var(--primary-bg);
   border: none;
   cursor: pointer;
   transition: transform 0.2s, background-color 0.2s;
@@ -194,96 +238,30 @@ body {
   transform: translateY(-2px);
 }
 
-.tabs {
-  display: flex;
-  padding: 1rem 2rem;
-  background-color: white;
-  border-bottom: 1px solid var(--border-color);
-  gap: 1rem;
-  overflow-x: auto;
-}
-
-.tab {
-  padding: 0.75rem 1.5rem;
-  cursor: pointer;
-  color: var(--secondary-color);
-  transition: all 0.2s;
-  border: 1px solid transparent;
-  background: none;
-  white-space: nowrap;
-  font-size: 0.9rem;
-}
-
-.tab:hover {
-  color: var(--primary-color);
-  border-color: var(--border-color);
-}
-
-.tab.active {
-  color: var(--accent-color);
-  border-color: var(--accent-color);
-  font-weight: 700;
-}
-
-.content-area {
-  flex: 1;
-  padding: 2rem;
-  background-color: white;
-  overflow-y: auto;
-}
-
-.header {
-  background-color: white;
-  padding: 1rem 2rem;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.header h1 {
-  color: var(--primary-color);
-  font-size: 1.5rem;
-  letter-spacing: -0.5px;
-}
-
 @media (max-width: 768px) {
-  .tabs {
+  .header {
     padding: 1rem;
   }
 
+  .tabs {
+    flex-wrap: wrap;
+  }
+
   .tab {
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
+    padding: 0.75rem 1rem;
+    flex: 1 1 auto;
+    text-align: center;
   }
 
   .content-area {
     padding: 1rem;
   }
 
-  .user-info {
-    padding: 1rem;
-    flex-direction: column;
-    gap: 0.5rem;
-    align-items: stretch;
-  }
-
-  .user-info span {
-    margin: 0;
-    text-align: center;
-  }
-
   .error-actions {
     flex-direction: column;
-    width: 100%;
   }
 
   .error-actions button {
     width: 100%;
-  }
-
-  .login-content {
-    padding: 1rem;
-  }
-
-  .login-content h1 {
-    font-size: 2rem;
   }
 }

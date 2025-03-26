@@ -6,6 +6,7 @@ import Kaspersky from './components/kaspersky';
 import APTDashboard from './components/APTDashboard';
 import Tweets from './components/Tweets';  
 import Lookup from './components/Lookup';
+import UserProfile from './components/UserProfile';
 import './App.css';
 
 function App() {
@@ -14,11 +15,9 @@ function App() {
   const auth = useAuth();
 
   useEffect(() => {
-    // Handle auth state changes
     if (auth.isAuthenticated) {
       console.log('User authenticated:', auth.user?.profile);
     }
-    // Add a small delay to show loading animation
     const timer = setTimeout(() => setIsLoading(false), 1000);
     return () => clearTimeout(timer);
   }, [auth.isAuthenticated, auth.user]);
@@ -46,27 +45,13 @@ function App() {
     }
   };
 
-  const handleSignOut = async () => {
-    try {
-      setIsLoading(true);
-      await auth.removeUser();
-      const clientId = "1u03g2n0diall88giqu2dmpt73";
-      const logoutUri = "https://tweetbeacon-demo.vercel.app/";
-      const cognitoDomain = "https://us-east-1gorfjmvhw.auth.us-east-1.amazoncognito.com";
-      window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
-    } catch (error) {
-      console.error('Logout error:', error);
-      setIsLoading(false);
-      window.location.href = "https://tweetbeacon-demo.vercel.app/";
-    }
-  };
-
   const TABS = [
     { id: 'ThreatMap', label: 'Threat Map', component: Kaspersky },
     { id: 'Feed', label: 'Feed', component: Tweets },
     { id: 'APTGroups', label: 'APT Groups', component: APTDashboard },
     { id: 'OrganizationActivity', label: 'Organization Activity', component: Org },
-    { id: 'Lookup', label: 'Lookup', component: Lookup }
+    { id: 'Lookup', label: 'Lookup', component: Lookup },
+    { id: 'Profile', label: 'Profile', component: UserProfile }
   ];
 
   if (isLoading || auth.isLoading) {
@@ -117,10 +102,6 @@ function App() {
     <div className="App">
       <Header />
       <div className="main-container">
-        <div className="user-info">
-          <span>Welcome, {auth.user?.profile.email || 'User'}</span>
-          <button onClick={handleSignOut}>Sign out</button>
-        </div>
         <nav className="tabs">
           {TABS.map(tab => (
             <button
