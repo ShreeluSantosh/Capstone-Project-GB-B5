@@ -6,13 +6,16 @@ import Kaspersky from './components/kaspersky';
 import APTDashboard from './components/APTDashboard';
 import Tweets from './components/Tweets';  
 import Lookup from './components/Lookup';
+import Home from './components/Home'; // Import Home.js
 import './App.css';
 
 function App() {
-  const [activeTab, setActiveTab] = useState('ThreatMap'); 
+  const [activeTab, setActiveTab] = useState('Home'); // Set default tab to 'Home'
 
   const renderContent = () => {
-    if (activeTab === 'ThreatMap') {
+    if (activeTab === 'Home') {
+      return <Home />;
+    } else if (activeTab === 'ThreatMap') {
       return <Kaspersky />;
     } else if (activeTab === 'APTGroups') {
       return <APTDashboard />;
@@ -27,8 +30,14 @@ function App() {
 
   return (
     <div className="App">
-        <Header />
-      <div className="tabs">
+      <Header />
+      <div className="tabs">  
+        <div 
+          className={`tab ${activeTab === 'Home' ? 'active' : ''}`} 
+          onClick={() => setActiveTab('Home')}
+        >
+          Home
+        </div>
         <div 
           className={`tab ${activeTab === 'ThreatMap' ? 'active' : ''}`} 
           onClick={() => setActiveTab('ThreatMap')}

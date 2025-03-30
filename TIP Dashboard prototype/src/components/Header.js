@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header className="App-header">
       <h1>TweetBeacon</h1>
-      <h5> Secure AI Threat Intelligence Platform Dashboard</h5>
+      <h5> Real-Time AI Cyber Threat Intelligence Platform</h5>
     </header>
   );
 };
