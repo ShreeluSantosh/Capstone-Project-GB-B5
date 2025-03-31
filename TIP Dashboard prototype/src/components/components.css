@@ -1,0 +1,223 @@
+/* Common component styles */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #34495e;
+    --accent-color: #3498db;
+    --background-color: #f8f9fa;
+    --error-color: #e74c3c;
+    --success-color: #2ecc71;
+    --border-color: #dee2e6;
+    --primary-bg: #2c3e50;
+    --secondary-bg: #34495e;
+    --text-primary: #ffffff;
+    --text-secondary: #dee2e6;
+  }
+  
+  .component-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--primary-bg);
+  }
+  
+  .loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    color: var(--text-secondary);
+  }
+  
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border-color);
+    border-top: 3px solid var(--accent-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .error-state {
+    text-align: center;
+    padding: 2rem;
+    color: var(--error-color);
+  }
+  
+  .card {
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .card-header h3 {
+    margin: 0;
+    color: var(--text-primary);
+  }
+  
+  .card-content {
+    color: var(--text-secondary);
+  }
+  
+  .button {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--accent-color);
+    color: var(--primary-bg);
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  
+  .button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .button.secondary {
+    background-color: transparent;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+  }
+  
+  .button.danger {
+    background-color: var(--error-color);
+    color: white;
+  }
+  
+  .search-bar {
+    padding: 0.75rem 1rem;
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 1rem;
+    width: 100%;
+    transition: all 0.3s ease;
+  }
+  
+  .search-bar:focus {
+    outline: none;
+    border-color: var(--accent-color);
+  }
+  
+  .filter-group {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .filter-select {
+    padding: 0.75rem 1rem;
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    min-width: 200px;
+  }
+  
+  .tag {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--border-color);
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    border-radius: 4px;
+  }
+  
+  .details-section {
+    margin-bottom: 2rem;
+  }
+  
+  .details-section h4 {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-weight: normal;
+  }
+  
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+  }
+  
+  .results-table th,
+  .results-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+  }
+  
+  .results-table th {
+    color: var(--text-secondary);
+    font-weight: normal;
+  }
+  
+  .results-table td {
+    color: var(--text-primary);
+  }
+  
+  .status-tag {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    border-radius: 4px;
+  }
+  
+  .status-danger {
+    background-color: var(--error-color);
+    color: white;
+  }
+  
+  .status-safe {
+    background-color: var(--success-color);
+    color: white;
+  }
+  
+  .grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  
+  @media (max-width: 768px) {
+    .component-container {
+      padding: 1rem;
+    }
+  
+    .card {
+      padding: 1rem;
+    }
+  
+    .filter-group {
+      flex-direction: column;
+    }
+  
+    .filter-select {
+      width: 100%;
+    }
+  }
