@@ -108,6 +108,34 @@ header h5 {
   opacity: 0.3;
 }
 
+.content-area {
+  padding: 2rem;
+  background-color: #1f262e;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #1f262e;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #364049;
+  border-top: 3px solid #00ffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.loading-container p {
+  color: #a1a8b0;
+}
+
 /* Main Content */
 main {
   flex-grow: 1;
@@ -134,7 +162,7 @@ main {
 
 /* Button Styles */
 button {
-  background-color: #e34234;
+  background-color: #112b38;
   color: #f2f1e8;
   border: none;
   padding: 10px 15px;
@@ -167,4 +195,79 @@ main::-webkit-scrollbar-thumb {
   .tab {
     border-bottom: 1px solid #4c7c71;
   }
+}
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #1f262e;
+  padding: 2rem;
+}
+
+.login-content {
+  text-align: center;
+  max-width: 400px;
+}
+
+.login-content h1 {
+  color: #00ffff;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.login-content p {
+  color: #a1a8b0;
+  margin-bottom: 2rem;
+}
+
+.login-button {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  background-color: #2c3440;
+  color: #00ffff;
+  border: 1px solid #00ffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.login-button:hover {
+  background-color: #00ffff;
+  color: #1f262e;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1rem 2rem;
+  background-color: #1f262e;
+  border-bottom: 1px solid #364049;
+}
+
+.user-info span {
+  margin-right: 1rem;
+  color: #e1e6eb;
+  font-weight: 700;
+}
+
+.user-info button {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  background-color: #ff4757;
+  color: #1f262e;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  font-family: 'Space Mono', monospace;
+}
+
+.user-info button:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
 }
