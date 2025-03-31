@@ -53,7 +53,15 @@ const ActivityDashboard = () => {
   
     // Filter and sort data
     const filteredData = data.filter(entry =>
-      entry.activity && entry.activity.trim() !== '' && entry.timestamp && entry.username
+      entry.activity &&
+      entry.activity.trim() !== '' &&
+      entry.timestamp &&
+      entry.username &&
+      (
+        entry.activity.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        entry.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        new Date(entry.timestamp).toLocaleString().toLowerCase().includes(searchQuery.toLowerCase())
+      )
     );
   
     console.log('Filtered Data:', filteredData); // Log filtered data
