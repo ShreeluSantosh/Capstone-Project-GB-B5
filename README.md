@@ -1,12 +1,6 @@
 # Capstone-Project-GB-B5
 
-## Tasks for Phase 1 - Review 2
-
-1. [X] Build web dashboard
-2. [X] Research on APT groups and build MongoDB threat repository
-3. [X] Tweet collection 
-4. [X] Dataset processing and sorting
-5. [X] Model building and training
+## Topic: TweetBeacon - A Secure AI Cyber Threat Intelligence Platform
 
 ## Running the dashboard:
 
