@@ -1,6 +1,15 @@
-# Capstone-Project-GB-B5
+# TweetBeacon
+A Secure AI Cyber Threat Intelligence Platform
 
-## Topic: TweetBeacon - A Secure AI Cyber Threat Intelligence Platform
+<p align="center">
+<img src="https://github.com/user-attachments/assets/84e220b7-9a86-4eaf-9a9d-3e3df771f872" height="300"></img>
+</p>
+
+## DSN4092 - Capstone Project Phase 2 
+- Winter Semester 2024-2025
+- Group B - Batch 5
+
+# About
 
 TweetBeacon features a futuristic cybersecurity aesthetic, with a dark UI, neon highlights, and dynamic data visualizations. It provides an intuitive experience for security professionals to track cyber incidents via Twitter data.
 
@@ -50,3 +59,10 @@ git clone https://github.com/ShreeluSantosh/Capstone-Project-GB-B5.git
 2. Create a `.env` file inside `/TIP Dashboard prototype` directory
 3. Copy and paste the contents of `env.txt` into `.env` file (You can do it in VS Code) and save the changes.
 4. For temporary access to proxy via Heroku's CORS Anywhere, visit `https://cors-anywhere.herokuapp.com/corsdemo` and click on "Request temporary access to the demo server"
+
+# Team Members
+- Shreelu Santosh (21BCY10090)
+- Aveepsa Das (21BCY10002)
+- Aparna Mishra (21BCY10123)
+- Ansh H Mehta (21BCY10113)
+- Debjit Mondal (21BCY10215)
