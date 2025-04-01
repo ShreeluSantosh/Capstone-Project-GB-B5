@@ -1,0 +1,66 @@
+.home-container {
+  padding: 20px;
+  text-align: center;
+  color: white;
+  background-color: #121212; /* Dark background */
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 8px;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+h1, h2 {
+  color: #00e5ff;
+  text-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff, 0 0 30px #00e5ff;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.outer-card-container {
+  background: rgba(255, 255, 255, 0.05); /* Subtle transparent outer card */
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 0 25px rgba(0, 229, 255, 0.4);
+  max-width: 850px;
+  margin: 30px auto;
+}
+
+.card-container {
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent inner card */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+  max-width: 800px;
+  margin: 20px auto;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card-container:hover {
+  transform: scale(1.02);
+}
+
+.card-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.card-container li {
+  margin: 10px 0;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.card-container li:hover {
+  background: rgba(0, 229, 255, 0.2);
+}
+
+.about-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+  max-width: 800px;
+  margin: 20px auto;
+  text-align: center;
+}
