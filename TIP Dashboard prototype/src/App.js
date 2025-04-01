@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from "react-oidc-context";
 import Header from './components/Header';
+import Home from './components/Home';
 import Org from './components/org';
 import Kaspersky from './components/kaspersky';
 import APTDashboard from './components/APTDashboard';
@@ -10,7 +11,7 @@ import UserProfile from './components/userProfile';
 import './App.css';
 
 function App() {
-  const [activeTab, setActiveTab] = useState('ThreatMap');
+  const [activeTab, setActiveTab] = useState('Home');
   const [isLoading, setIsLoading] = useState(true);
   const auth = useAuth();
 
@@ -46,6 +47,7 @@ function App() {
   };
 
   const TABS = [
+    { id: 'Home', label: 'Home', component: Home },
     { id: 'ThreatMap', label: 'Threat Map', component: Kaspersky },
     { id: 'Feed', label: 'Feed', component: Tweets },
     { id: 'APTGroups', label: 'APT Groups', component: APTDashboard },
